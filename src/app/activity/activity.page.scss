@@ -1,0 +1,27 @@
+.example-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+ion-header {
+  h1 {
+    color: #3562e9;
+    text-align: center;
+    font-weight: bold;
+    background-color: #fff;
+    padding: 5px;
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-light-tint);
+  .content {
+    ion-list {
+      h1 {
+        color: #475d84;
+      }
+    }
+  }
+}

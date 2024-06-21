@@ -1,0 +1,77 @@
+<ion-content [fullscreen]="true">
+  <div class="container" id="container">
+    <div class="container-fluid">
+      <div class="form-login">
+        <div class="card">
+          <div class="card-header">
+            <h2>Sixrent</h2>
+            <p>Selamat Datang</p>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="regisForm" (ngSubmit)="onSubmit()">
+              <div class="custom-input">
+                <ion-input
+                  formControlName="name"
+                  label="Name"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Masukan Nama Anda"
+                ></ion-input>
+              </div>
+              <div class="custom-input">
+                <ion-input
+                  formControlName="email"
+                  label="Email"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Masukan Email Anda"
+                ></ion-input>
+              </div>
+              <div class="custom-input">
+                <ion-input
+                  formControlName="password"
+                  label="Password"
+                  label-placement="floating"
+                  fill="outline"
+                  placeholder="Masukan Password Anda"
+                  type="password"
+                ></ion-input>
+              </div>
+              <div class="custom-button">
+                <ion-button
+                  color="primary"
+                  type="submit"
+                  [disabled]="!regisForm.valid || isLoading"
+                >
+                  <ion-spinner name="circles" *ngIf="isLoading"></ion-spinner>
+                  {{ isLoading ? 'Loading ...' : 'Login' }}
+                </ion-button>
+              </div>
+            </form>
+            <div class="form-footer">
+              <a class="forgot-password" routerLink="/forgot">Lupa Password</a>
+              <span
+                >Sudah Punya Akun?<a class="login" routerLink="/login">Login</a></span
+              >
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="divider">Atau</div>
+            <div class="btn-social">
+              <ion-button>
+                <ion-icon name="logo-google"></ion-icon>
+              </ion-button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ion-alert
+    [isOpen]="isAlert"
+    class="alert-login"
+    [header]="isError ? 'Register gagal' : 'Register Berhasil'"
+    [message]="isError ? responser.message : ''"
+  ></ion-alert>
+</ion-content>

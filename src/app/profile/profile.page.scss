@@ -1,0 +1,46 @@
+ion-header {
+  .account-header {
+    text-align: center;
+    padding: 20px;
+
+    .profile-picture {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto;
+    }
+
+    .name {
+      margin-top: 10px;
+      font-size: 24px;
+    }
+
+    .email {
+      color: #666;
+      font-size: 16px;
+    }
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-light-tint);
+  .session {
+    ion-button {
+      ion-item {
+        --padding-start: 20px;
+        --inner-padding-end: 20px;
+
+        ion-icon {
+          color: #666;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+
+  .example-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+}

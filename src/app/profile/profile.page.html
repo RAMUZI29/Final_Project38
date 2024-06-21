@@ -1,0 +1,23 @@
+
+<ion-header>
+  <div class="account-header">
+    <ion-avatar class="profile-picture">
+      <img src="assets/img/Luffy.jpg" alt="Profile Picture">
+    </ion-avatar>
+    <h2 class="name">{{ userData.name }}</h2>
+    <p class="email">{{ userData.email }}</p>
+  </div>
+</ion-header>
+
+<ion-content>
+  <ion-list [inset]="true">
+    <ion-button (click)="logout()" fill="clear" expand="full" color="light">
+    <ion-item>
+      <ion-icon name="log-out-outline"></ion-icon>
+      <ion-label>
+           Logout
+      </ion-label>
+    </ion-item>
+     </ion-button>
+  </ion-list>
+</ion-content>

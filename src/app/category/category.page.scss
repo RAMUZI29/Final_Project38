@@ -1,0 +1,77 @@
+.example-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+ion-header {
+  background-color: #fff;
+  .title {
+    h1 {
+      text-align: center;
+      color: #3562e9;
+      font-weight: bold;
+    }
+  }
+
+  .search {
+    ion-searchbar {
+      padding: 20px;
+      justify-content: center;
+      margin-top: 20px;
+    }
+  }
+}
+
+ion-content {
+  --background: var(--ion-color-light-tint);
+  .category {
+    background-color: #475d84;
+    ion-segment {
+      ion-segment-button {
+        ion-label {
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  ion-card {
+    padding: 5px;
+    margin: 10px;
+
+    ion-card img {
+      height: 100px;
+      margin-right: 10px;
+    }
+
+    ion-list {
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    ion-button {
+      float: right;
+      padding: 10px;
+    }
+
+    ion-card-content {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  .price-tag {
+    color: #333;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 16px;
+    display: inline-block;
+  }
+
+  .price-suffix {
+    font-weight: normal; /* Menghilangkan bold pada teks "/ Hari" */
+    margin-top: 8px;
+  }
+}

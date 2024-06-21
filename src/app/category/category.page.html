@@ -1,0 +1,245 @@
+<ion-header [translucent]="true">
+  <div class="title">
+    <h1>CARRENT</h1>
+  </div>
+  <div class="search">
+    <ion-searchbar
+      color="light"
+      placeholder="Light"
+      (ionInput)="handleInput($event)"
+    ></ion-searchbar>
+  </div>
+</ion-header>
+
+<ion-content>
+  <div class="category">
+    <ion-segment value="1" (ionChange)="segmentChanged($event)">
+      @for (item of data; track $index) {
+      <ion-segment-button value="{{item.id}}">
+        <ion-label>{{item.name}}</ion-label>
+      </ion-segment-button>
+      }
+    </ion-segment>
+  </div>
+
+  @for (item of filteredData; track $index) {
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>{{item.name}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-card-subtitle>
+        <img
+          alt="Silhouette of mountains"
+          src="{{url + item.image.split('../public')[1]}}"
+        />
+        <p class="price-tag">
+          <span style="font-weight: bold">Rp.{{item.price_per_day}}</span>
+          <span class="price-suffix">/ Hari</span>
+        </p>
+        <p style="margin: 2px 5px">Stok: {{item.stock}}</p>
+      </ion-card-subtitle>
+      <ion-list>
+        <ion-item>
+          <ion-icon aria-hidden="true" name="people" slot="start"></ion-icon>
+          <ion-label>{{item.seat}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon aria-hidden="true" name="settings" slot="start"></ion-icon>
+          <ion-label>{{item.transmisi}}</ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon aria-hidden="true" name="clipboard" slot="start"></ion-icon>
+          <ion-label>{{item.jenis_bbm}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+    <ion-button (click)="handleModal(item)">Rental</ion-button>
+  </ion-card>
+  }
+
+  <ion-modal [isOpen]="isModalOpen">
+    <ng-template>
+      <ion-header>
+        <ion-toolbar>
+          <ion-title>Booking</ion-title>
+          <ion-buttons slot="end">
+            <ion-button (click)="setOpen(false)">Close</ion-button>
+          </ion-buttons>
+        </ion-toolbar>
+      </ion-header>
+      <ion-content class="ion-padding">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>{{ dataRental.name}}</ion-card-title>
+            <ion-card-subtitle>
+              <img
+                alt="Silhouette of mountains"
+                src="{{url + dataRental.image.split('../public')[1]}}"
+              />
+            </ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Pick-Up</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-datetime-button datetime="pickup"></ion-datetime-button>
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  appDate
+                  id="pickup"
+                  [minDate]="getCurrentDate()"
+                  presentation="date"
+                  value="{{ getCurrentDate() }}"
+                  (ionChange)="updatePickupDate($event)"
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-card-content>
+        </ion-card>
+        <ion-icon name="swap-vertical-outline"></ion-icon>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Drop-off</ion-card-title>
+          </ion-card-header>
+
+          <ion-card-content>
+            <ion-datetime-button datetime="dropoff"></ion-datetime-button>
+
+            <ion-modal [keepContentsMounted]="true">
+              <ng-template>
+                <ion-datetime
+                  appDate
+                  id="dropoff"
+                  [minDate]="pickupDate"
+                  [pickupDate]="pickupDate"
+                  [isDropoff]="true"
+                  presentation="date"
+                  value="{{ getTomorrowDate() }}"
+                ></ion-datetime>
+              </ng-template>
+            </ion-modal>
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Spesifikasi Mobil</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+                <ion-item>
+                  <ion-icon
+                    aria-hidden="true"
+                    name="people"
+                    slot="start"
+                  ></ion-icon>
+                  <ion-label>{{dataRental.seat}}</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col size="6">
+                <ion-item>
+                  <ion-icon
+                    aria-hidden="true"
+                    name="settings"
+                    slot="start"
+                  ></ion-icon>
+                  <ion-label>{{dataRental.transmisi}}</ion-label>
+                </ion-item>
+              </ion-col>
+              <ion-col>
+                <ion-item>
+                  <ion-icon
+                    aria-hidden="true"
+                    name="clipboard"
+                    slot="start"
+                  ></ion-icon>
+                  <ion-label>{{dataRental.jenis_bbm}}</ion-label>
+                </ion-item>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Payment</ion-card-title>
+            <ion-card-content></ion-card-content>
+          </ion-card-header>
+        </ion-card>
+        <ion-button expand="block" (click)="handleBooking(dataRental)"
+          >Confirm</ion-button
+        >
+      </ion-content>
+    </ng-template>
+  </ion-modal>
+</ion-content>
+
+<!-- <ion-grid>
+      <ion-row>
+        @for (item of filteredData; track $index) {
+        <ion-col size="6">
+          <ion-card>
+            <ion-card-header>
+              <ion-card-title>{{item.title}}</ion-card-title>
+              <ion-card-subtitle>
+                <img alt="Silhouette of mountains" src="{{item.image}}" />
+              </ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>{{item.desc}}</ion-card-content>
+            <ion-list>
+              <ion-item>
+                <ion-icon
+                  aria-hidden="true"
+                  name="people"
+                  slot="start"
+                ></ion-icon>
+                <ion-label>6 orang</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon
+                  aria-hidden="true"
+                  name="settings"
+                  slot="start"
+                ></ion-icon>
+                <ion-label>Manual\Matic</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-icon
+                  aria-hidden="true"
+                  name="clipboard"
+                  slot="start"
+                ></ion-icon>
+                <ion-label>Bensin\Diesel</ion-label>
+              </ion-item>
+              <ion-item>
+                <ion-button expand="block" (click)="setOpen(true)"
+                  >Rental</ion-button
+                >
+                <ion-modal [isOpen]="isModalOpen">
+                  <ng-template>
+                    <ion-header>
+                      <ion-toolbar>
+                        <ion-title>Booking</ion-title>
+                        <ion-buttons slot="end">
+                          <ion-button (click)="setOpen(false)"
+                            >Close</ion-button
+                          >
+                        </ion-buttons>
+                      </ion-toolbar>
+                    </ion-header>
+
+                  </ng-template>
+                </ion-modal>
+              </ion-item>
+            </ion-list>
+          </ion-card>
+        </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  </div> -->
