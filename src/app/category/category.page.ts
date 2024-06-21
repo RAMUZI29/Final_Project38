@@ -62,8 +62,12 @@ export class CategoryPage implements OnInit {
   async Car() {
     try {
       const response = await this.carService.getCar();
-      this.car = response.data;
-      this.filterData();
+      if (response) {
+        this.car = response.data;
+        if (this.car) {
+          this.filterData();
+        }
+      }
     } catch (error) {
       console.error('Error fetching car data:', error);
     }
@@ -75,7 +79,7 @@ export class CategoryPage implements OnInit {
   }
 
   filterData() {
-    this.filteredData = this.car.filter((d) => d.category_id === this.segment);
+    this.filteredData = this.car.filter((d) => d.category_id === this.segment.toString());
   }
 
   handleInput(event: any) {

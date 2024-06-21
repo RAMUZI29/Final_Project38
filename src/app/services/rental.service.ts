@@ -10,21 +10,12 @@ export class RentalService {
 
   // addrental
   async addRental(dataRental: any) {
-    const { data } = await axiosInstance.post('/rental', dataRental, {
-      headers: {
-        Authorization: `Bearer ${this.auth.getToken()}`,
-      },
-    });
+    const { data } = await axiosInstance.post('/rental', dataRental);
     return data;
   }
 
   async getRental() {
-    const token = this.auth.getToken();
-    const { data } = await axiosInstance.get('/rental', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const { data } = await axiosInstance.get('/rental');
     return data;
   }
 }

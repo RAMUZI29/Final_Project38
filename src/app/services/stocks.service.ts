@@ -10,11 +10,7 @@ export class StocksService {
 
   async getStocks() {
     const token = this.auth.getToken();
-    const { data } = await axiosInstance.get('/stocks', {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const { data } = await axiosInstance.get('/stocks');
     return data;
   }
 }
