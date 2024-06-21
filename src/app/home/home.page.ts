@@ -21,7 +21,7 @@ export class HomePage implements OnInit {
     slidesPerView: 1,
     autoplay:true
    };
-  
+
   isModalOpen = false;
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
@@ -42,28 +42,22 @@ export class HomePage implements OnInit {
   async fetchCars() {
     try {
       const response = await this.carService.getCar();
-      console.log('API Response:', response); // Log respons API
-      this.cars = response.data; // Pastikan data diterima dengan benar
-  
-      // Log semua nama mobil untuk verifikasi
-      this.cars.forEach(car => console.log('Car name:', car.name));
-  
+      this.cars = response.data;
+
       // Pilih mobil tertentu berdasarkan nama
       const selectedCarNames = ['Civic', 'Palisade', 'Camry', 'Ioniq 6', 'Innova V', 'Alphard'];
       this.selectedCars = this.cars.filter(car => selectedCarNames.includes(car.name.trim()));
-      console.log ('Selected Cars:', this.selectedCars);
 
       // Pilih mobil yang direkomendasikan berdasarkan nama
       const recommendedCarNames = ['Fortuner', 'Mobilio', 'Staria', 'Creta', 'Veloz'];
       this.recommendedCars = this.cars.filter(car => recommendedCarNames.includes(car.name.trim()));
-      console.log('Recommended Cars:', this.recommendedCars);
 
     } catch (error) {
       console.error('Error fetching car data:', error);
     }
   }
-  
-  
+
+
 
   public alertButtons = [
     {
