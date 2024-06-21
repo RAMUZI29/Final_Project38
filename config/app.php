@@ -196,4 +196,6 @@ return [
         // ...
     ])->toArray(),
 
+    'api_key' => env('APP_API_KEY'),
+
 ];
