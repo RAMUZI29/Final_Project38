@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Carrent App</string>
+    <string name="title_activity_main">Carrent App</string>
+    <string name="package_name">com.carrent.app</string>
+    <string name="custom_url_scheme">com.carrent.app</string>
+    <string name="server_client_id">418249711917-id1t993m4kqinfv1toscjajkh2i0dmj2.apps.googleusercontent.com</string>
+</resources>

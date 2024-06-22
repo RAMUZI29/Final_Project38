@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  baseUrl: 'http://localhost:8000/api',
-  urlApi: 'http://localhost:8000',
-
+  baseUrl: 'https://rental-mobil-38.my.id/api',
+  urlApi: 'https://rental-mobil-38.my.id',
+  apiKey: 'vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7'
 };
