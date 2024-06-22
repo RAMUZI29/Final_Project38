@@ -9,7 +9,12 @@ export class CarService {
   constructor(public auth: AuthService) {}
 
   async getCar() {
-    const { data } = await axiosInstance.get('/car');
+    const token = this.auth.getToken();
+    const { data } = await axiosInstance.get('/car', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
     return data;
   }
 }

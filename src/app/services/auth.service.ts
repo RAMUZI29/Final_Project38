@@ -64,12 +64,22 @@ export class AuthService {
   }
 
   async login(dataLogin: object) {
-    const { data } = await axiosInstance.post('/login', dataLogin);
+    const token = this.getToken();
+    const { data } = await axiosInstance.post('/login', dataLogin, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
     return data;
   }
 
   async loginWithGoogle(dataLogin: object) {
-    const { data } = await axiosInstance.post('/oauth/register', dataLogin);
+    const token = this.getToken();
+    const { data } = await axiosInstance.post('/oauth/register', dataLogin, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
     return data;
   }
 }

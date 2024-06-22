@@ -10,7 +10,11 @@ export class CategoryService {
 
   async getCategory() {
     const token = this.auth.getToken();
-    const { data } = await axiosInstance.get('/categories');
+    const { data } = await axiosInstance.get('/categories', {
+      headers: {
+        Authorization: `Bearer ${token}`, 
+      }
+    });
     return data;
   }
 }
