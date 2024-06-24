@@ -23,27 +23,6 @@
 
   <div class="category">
     <ion-label>Favorit</ion-label>
-    <ion-button fill="clear" (click)="setOpen(true)">Lihat Semua</ion-button>
-    <ion-modal [isOpen]="isModalOpen">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Modal</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="setOpen(false)">Close</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content class="ion-padding">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
-            reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui. Eaque,
-            dicta.
-          </p>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
-
     <swiper-container style="margin: 0" class="mySwiper">
       @for (car of selectedCars; track $index) {
       <swiper-slide>
@@ -51,270 +30,99 @@
           <ion-card-header>
             <ion-card-title>{{ car.name }}</ion-card-title>
           </ion-card-header>
-          <img src="{{ url + car.image.split('../public')[1] }}" alt="{{ car.name }}" />
+          <img
+            src="{{ url + car.image.split('../public')[1] }}"
+            alt="{{ car.name }}"
+          />
           <ion-card-content>
-            <ion-card-subtitle>Rp.{{ car.price_per_day }} / Hari</ion-card-subtitle>
+            <ion-card-subtitle
+              >Rp.{{ car.price_per_day }} / Hari</ion-card-subtitle
+            >
+            <p style="margin: 2px 5px">Stok: {{car.stock}}</p>
             <ion-list>
               <ion-item>
-                <ion-icon aria-hidden="true" name="people" slot="start"></ion-icon>
+                <ion-icon
+                  aria-hidden="true"
+                  name="people"
+                  slot="start"
+                ></ion-icon>
                 <ion-label2>{{ car.seat }}</ion-label2>
               </ion-item>
               <ion-item>
-                <ion-icon aria-hidden="true" name="settings" slot="start"></ion-icon>
+                <ion-icon
+                  aria-hidden="true"
+                  name="settings"
+                  slot="start"
+                ></ion-icon>
                 <ion-label2>{{ car.transmisi }}</ion-label2>
               </ion-item>
               <ion-item>
-                <ion-icon aria-hidden="true" name="clipboard" slot="start"></ion-icon>
+                <ion-icon
+                  aria-hidden="true"
+                  name="clipboard"
+                  slot="start"
+                ></ion-icon>
                 <ion-label2>{{ car.jenis_bbm }}</ion-label2>
               </ion-item>
             </ion-list>
           </ion-card-content>
-          <ion-button (click)="setOpen(true)">Rental</ion-button>
-          <ion-modal [isOpen]="isModalOpen">
-            <ng-template>
-              <ion-header>
-                <ion-toolbar>
-                  <ion-title>Booking</ion-title>
-                  <ion-buttons slot="end">
-                    <ion-button (click)="setOpen(false)">Close</ion-button>
-                  </ion-buttons>
-                </ion-toolbar>
-              </ion-header>
-              <ion-content class="ion-padding">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
-                  reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui.
-                  Eaque, dicta.
-                </p>
-              </ion-content>
-            </ng-template>
-          </ion-modal>
         </ion-card>
       </swiper-slide>
       }
     </swiper-container>
-    <ion-label>Recommended</ion-label>
-    <ion-button fill="clear" (click)="setOpen(true)">Lihat Semua</ion-button>
-    <ion-modal [isOpen]="isModalOpen">
-      <ng-template>
-        <ion-header>
-          <ion-toolbar>
-            <ion-title>Modal</ion-title>
-            <ion-buttons slot="end">
-              <ion-button (click)="setOpen(false)">Close</ion-button>
-            </ion-buttons>
-          </ion-toolbar>
-        </ion-header>
-        <ion-content class="ion-padding">
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
-            reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui. Eaque,
-            dicta.
-          </p>
-        </ion-content>
-      </ng-template>
-    </ion-modal>
+  </div>
 
+  <div class="category2">
+    <ion-label>Recommended</ion-label>
     <swiper-container style="margin: 0" class="mySwiper">
       @for (car of recommendedCars; track $index) {
       <swiper-slide>
         <ion-card>
           <ion-card-header>
-            <ion-card-title>{{ car.name }}</ion-card-title>
+            <ion-card-title>{{car.name}}</ion-card-title>
           </ion-card-header>
-          <img src="{{ url + car.image.split('../public')[1] }}" alt="{{ car.name }}" />
           <ion-card-content>
-            <ion-card-subtitle>Rp.{{ car.price_per_day }} / Hari</ion-card-subtitle>
+            <ion-card-subtitle>
+              <img
+                alt="Silhouette of mountains"
+                src="{{url + car.image.split('../public')[1]}}"
+              />
+              <p class="price-tag">
+                <span style="font-weight: bold">Rp.{{car.price_per_day}}</span>
+                <span class="price-suffix">/ Hari</span>
+              </p>
+              <p style="margin: 2px 5px">Stok: {{car.stock}}</p>
+            </ion-card-subtitle>
             <ion-list>
               <ion-item>
-                <ion-icon aria-hidden="true" name="people" slot="start"></ion-icon>
-                <ion-label2>{{ car.seat }}</ion-label2>
+                <ion-icon
+                  aria-hidden="true"
+                  name="people"
+                  slot="start"
+                ></ion-icon>
+                <ion-label2>{{car.seat}}</ion-label2>
               </ion-item>
               <ion-item>
-                <ion-icon aria-hidden="true" name="settings" slot="start"></ion-icon>
-                <ion-label2>{{ car.transmisi }}</ion-label2>
+                <ion-icon
+                  aria-hidden="true"
+                  name="settings"
+                  slot="start"
+                ></ion-icon>
+                <ion-label2>{{car.transmisi}}</ion-label2>
               </ion-item>
               <ion-item>
-                <ion-icon aria-hidden="true" name="clipboard" slot="start"></ion-icon>
-                <ion-label2>{{ car.jenis_bbm }}</ion-label2>
+                <ion-icon
+                  aria-hidden="true"
+                  name="clipboard"
+                  slot="start"
+                ></ion-icon>
+                <ion-label2>{{car.jenis_bbm}}</ion-label2>
               </ion-item>
             </ion-list>
           </ion-card-content>
-          <ion-button (click)="setOpen(true)">Rental</ion-button>
-          <ion-modal [isOpen]="isModalOpen">
-            <ng-template>
-              <ion-header>
-                <ion-toolbar>
-                  <ion-title>Booking</ion-title>
-                  <ion-buttons slot="end">
-                    <ion-button (click)="setOpen(false)">Close</ion-button>
-                  </ion-buttons>
-                </ion-toolbar>
-              </ion-header>
-              <ion-content class="ion-padding">
-                <p>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni illum quidem recusandae ducimus quos
-                  reprehenderit. Veniam, molestias quos, dolorum consequuntur nisi deserunt omnis id illo sit cum qui.
-                  Eaque, dicta.
-                </p>
-              </ion-content>
-            </ng-template>
-          </ion-modal>
         </ion-card>
       </swiper-slide>
       }
     </swiper-container>
   </div>
 </ion-content>
-
-
-<!-- <div class="nemo">
-  <div class="header-category">
-    <ion-label>Favorit</ion-label>
-    <ion-button fill="clear" (click)="setOpen(true)"
-      >Lihat Semua</ion-button
-    >
-  </div>
-  <ion-modal [isOpen]="isModalOpen">
-    <ng-template>
-      <ion-header>
-        <ion-toolbar>
-          <ion-title>Favorit</ion-title>
-          <ion-buttons slot="end">
-            <ion-button (click)="setOpen(false)">Close</ion-button>
-          </ion-buttons>
-        </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-padding">
-        <p>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Hyundai Palisade</ion-card-title>
-              <ion-card-subtitle>
-                <img
-                  alt="Silhouette of mountains"
-                  src="assets/img/hyundai/palisade.png"
-                />
-              </ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing
-              more, nothing less.
-            </ion-card-content>
-          </ion-card>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Toyota Camry</ion-card-title>
-              <ion-card-subtitle>
-                <img
-                  alt="Silhouette of mountains"
-                  src="assets/img/toyota/camry.png"
-                />
-              </ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing
-              more, nothing less.
-            </ion-card-content>
-          </ion-card>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Hyundai Ioniq 6</ion-card-title>
-              <ion-card-subtitle>
-                <img
-                  alt="Silhouette of mountains"
-                  src="assets/img/hyundai/ioniq6.png"
-                />
-              </ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing
-              more, nothing less.
-            </ion-card-content>
-          </ion-card>
-          <ion-card>
-            <ion-card-header>
-              <ion-card-title>Honda Civic</ion-card-title>
-              <ion-card-subtitle>
-                <img
-                  alt="Silhouette of mountains"
-                  src="assets/img/honda/civic.png"
-                />
-              </ion-card-subtitle>
-            </ion-card-header>
-
-            <ion-card-content>
-              Here's a small text description for the card content. Nothing
-              more, nothing less.
-            </ion-card-content>
-          </ion-card>
-        </p>
-      </ion-content>
-    </ng-template>
-  </ion-modal>
-
-<div class="recomendation">
-  <div class="header-recomendation">
-    <ion-label>Rekomendasi</ion-label>
-    <ion-router-link routerLink="/category">Lihat Semua</ion-router-link>
-  </div>
-  <swiper-container style="margin: 0" class="mySwiper">
-    <swiper-slide>
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Honda Civic</ion-card-title>
-          <ion-card-subtitle>
-            <img
-              alt="Silhouette of mountains"
-              src="assets/img/honda/civic.png"
-            />
-          </ion-card-subtitle>
-        </ion-card-header>
-
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing
-          more, nothing less.
-        </ion-card-content>
-      </ion-card>
-    </swiper-slide>
-    <swiper-slide>
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Toyota Veloz</ion-card-title>
-          <ion-card-subtitle>
-            <img
-              alt="Silhouette of mountains"
-              src="assets/img/toyota/veloz.png"
-            />
-          </ion-card-subtitle>
-        </ion-card-header>
-
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing
-          more, nothing less.
-        </ion-card-content>
-      </ion-card>
-    </swiper-slide>
-    <swiper-slide>
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Toyota Fortuner</ion-card-title>
-          <ion-card-subtitle>
-            <img
-              alt="Silhouette of mountains"
-              src="assets/img/toyota/fortuner.png"
-            />
-          </ion-card-subtitle>
-        </ion-card-header>
-
-        <ion-card-content>
-          Here's a small text description for the card content. Nothing
-          more, nothing less.
-        </ion-card-content>
-      </ion-card>
-    </swiper-slide>
-  </swiper-container>
-</div> -->

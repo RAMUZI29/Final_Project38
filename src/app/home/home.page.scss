@@ -4,8 +4,12 @@ $secondary-color: #475d84;
 
 // Animations
 @keyframes fadeIn {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 
 // Styles
@@ -29,8 +33,9 @@ ion-header {
 }
 
 ion-content {
+  padding: 10px;
   --background: var(--ion-color-light-tint);
-  
+
   .container {
     .brand {
       justify-content: center;
@@ -42,124 +47,62 @@ ion-content {
         color: $secondary-color;
         font-weight: bold;
         font-size: 38px;
-        
+
         .highlight {
           color: $primary-color;
           transition: color 0.3s ease;
-          
+
           &:hover {
             color: darken($primary-color, 10%);
           }
         }
       }
     }
-    .action {
-      justify-content: center;
-      padding: 0px;
-
-      img {
-        width: 100%;
-        height: auto;
-        border-radius: 20px;
-      }
-    }
   }
-  
-  .category, .nemo, .recomendation {
-    margin: 20px;
 
-    .header-category, .header-recomendation {
-      font-weight: bold;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: rgba(255, 255, 255, 0.8);
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-
-      &:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      }
-    }
-
-    .mySwiper {
+  .category {
+    ion-label {
       padding: 10px;
-
-      .swiper-slide {
-        width: calc(5% - 5px);
-        margin-right: 5px;
-      }
-    }
-
-    ion-card {
-      border-radius: 20px;
-      padding: 15px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: box-shadow 0.3s ease;
-
-      &:hover {
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        transform: translateY(-5px);
-      }
-
-      ion-card-header {
-        padding: 5px;
-      }
-
-      ion-card-content {
-        padding-top: 10px;
-      }
-
-      img {
-        width: 100%;
-        height: 170px;
-        object-fit: cover;
-        border-top-left-radius: 20px;
-        border-top-right-radius: 20px;
-      }
-
-      ion-card-title {
-        font-weight: bold;
-        font-size: 1.4em;
-        color: #333;
-      }
-
-      ion-card-subtitle:nth-child(odd) {
-        font-weight: bold;
-        font-size: 1.1em;
-        color: #333;
-      }
-      
-      ion-card-subtitle:nth-child(even) {
-        font-style: italic;
-        font-size: 1em;
-        color: #666;
-      }
+      font-weight: bold;
+      color: #475d84;
     }
   }
 
-  .link {
-    width: 100%;
-    display: flex;
-    justify-content: flex-end;
+  .category2 {
+    ion-label {
+      padding: 10px;
+      font-weight: bold;
+      color: #475d84;
+    }
   }
 
-  ion-label {
-    font-weight: bold;
-    font-size: 1.1em;
-    color: #475d84;
-  }
+  ion-card {
+    margin-bottom: 100px;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
 
-  ion-button {
-    justify-content: space-between;
-    font-weight: bold;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    ion-card-header {
+      padding: 5px;
+    }
 
-    &:hover {
-      transform: scale(1.1);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    ion-card-content {
+      padding-top: 10px;
+    }
+
+    img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    ion-card-title {
+      font-weight: bold;
+      font-size: 1.4em;
+      color: #333;
     }
   }
 }

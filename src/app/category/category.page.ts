@@ -91,19 +91,11 @@ export class CategoryPage implements OnInit {
     );
   }
 
-  handleInput(event: any) {
-    const query = event.target.value.toLowerCase();
-    const allData = this.data.reduce((acc: any, category: any) => {
-      return acc.concat(category.category_data);
-    }, []);
-
-    if (query) {
-      this.filteredData = allData.filter((item: any) =>
-        item.title.toLowerCase().includes(query)
-      );
-    } else {
-      this.filterData();
-    }
+  async handleInput(event: any) {
+    const value = event.target.value;
+    this.filteredData = this.car.filter((d) =>
+      d.name.toLowerCase().includes(value.toLowerCase())
+    );
   }
 
   getCurrentDate() {
@@ -139,7 +131,7 @@ export class CategoryPage implements OnInit {
     console.log(bookingData);
 
     try {
-      const response = await fetch('http://localhost:8000/api/payment', {
+      const response = await fetch('https://rental-mobil-38.my.id/api/payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
