@@ -10,9 +10,12 @@ class Payment extends Model
     use HasFactory;
 
     protected $fillable = [
-        'rental_id',
-        'amount',
-        'payment_date',
+        'order_id',
+        'car_id',
+        'item_name',
+        'customer_first_name',
+        'customer_email',
+        'price',
         'status',
     ];
 

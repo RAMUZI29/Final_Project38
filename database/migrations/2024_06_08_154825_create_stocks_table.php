@@ -10,12 +10,12 @@ class CreateStocksTable extends Migration
     {
         Schema::create('stocks', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_car');
+            $table->unsignedBigInteger('car_id');
             $table->integer('quantity')->default(0);
             $table->timestamps();
 
             // Definisi foreign key untuk kolom car_id
-            $table->foreign('id_car')->references('id')->on('cars')->onDelete('cascade');
+            $table->foreign('car_id')->references('id')->on('cars')->onDelete('cascade');
         });
     }
 

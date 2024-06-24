@@ -15,7 +15,7 @@ class Car extends Model
         'price_per_day',
         'seat',
         'category_id',
-        'jenis_bbm',
+        'capasity_bbm',
         'transmisi',
         'created_at',
         'updated_at'
@@ -29,10 +29,5 @@ class Car extends Model
     public function category()
     {
         return $this->belongsTo(Category::class);
-    }
-
-    public function stock()
-    {
-        return $this->hasOne(Stock::class, 'id_car');
     }
 }

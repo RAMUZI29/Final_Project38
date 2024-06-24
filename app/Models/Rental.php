@@ -15,7 +15,6 @@ class Rental extends Model
         'rental_date',
         'return_date',
         'total_amount',
-        'status',
     ];
 
     public function user()
@@ -31,27 +30,5 @@ class Rental extends Model
     public function payment()
     {
         return $this->hasOne(Payment::class);
-    }
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->validateStatus();
-        });
-
-        static::updating(function ($model) {
-            $model->validateStatus();
-        });
-    }
-
-    public function validateStatus()
-    {
-        $validStatuses = ['Not Yet Paid', 'Active', 'Expired'];
-
-        if (!in_array($this->status, $validStatuses)) {
-            throw new \InvalidArgumentException("Invalid status: {$this->status}");
-        }
     }
 }

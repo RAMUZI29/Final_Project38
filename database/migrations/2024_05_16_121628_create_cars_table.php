@@ -12,13 +12,13 @@ return new class extends Migration
             $table->id();
             $table->string('name')->nullable(false);
             $table->string('image')->nullable(false);
-            $table->string('description')->nullable();
-            $table->year('year')->nullable();
-            $table->decimal('price_per_day', 10, 2)->nullable();
-            $table->string('seat')->nullable();
-            $table->enum('transmisi', ['manual', 'automatic', 'MT', 'AT'])->nullable();
-            $table->string('jenis_bbm')->nullable();
-            $table->unsignedBigInteger('category_id')->nullable();
+            $table->string('description')->nullable(false);
+            $table->year('year')->nullable(false);
+            $table->decimal('price_per_day', 10, 2)->nullable(false);
+            $table->string('seat')->nullable(false);
+            $table->enum('transmisi', ['manual', 'automatic', 'MT', 'AT'])->nullable(false);
+            $table->string('capasity_bbm')->nullable(false);
+            $table->unsignedBigInteger('category_id')->nullable(false);
             $table->timestamps();
         });
 

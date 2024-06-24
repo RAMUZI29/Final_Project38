@@ -60,17 +60,17 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $valdator = Validator::make($request->all(), [
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
 
         // failed validation
-        if ($valdator->fails()) {
+        if ($validator->fails()) {
             return response()->json([
                 "status" => false,
-                "message" => $valdator->errors()
+                "message" => "harap login terlebih dahulu"
             ], 401);
         }
 
@@ -145,21 +145,12 @@ class AuthController extends Controller
         //remove token
         $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
 
-        if ($removeToken) {
+        if($removeToken) {
             //return response JSON
             return response()->json([
                 'success' => true,
                 'message' => 'Logout Berhasil!',
             ]);
         }
-    }
-
-    public function info(Request $request)
-    {
-        $user = JWTAuth::user();
-        return response()->json([
-            "status" => true,
-            "data" => $user
-        ], 200);
     }
 }

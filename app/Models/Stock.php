@@ -9,10 +9,10 @@ class Stock extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['id', 'quantity'];
+    protected $fillable = ['car_id', 'quantity'];
 
     public function car()
     {
-        return $this->belongsTo(Car::class, 'id_car');
+        return $this->belongsTo(Car::class);
     }
 }

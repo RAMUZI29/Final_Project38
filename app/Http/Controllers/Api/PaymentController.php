@@ -6,122 +6,96 @@ use App\Http\Controllers\Controller;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
-use Xendit\Configuration;
-use Xendit\Invoice\InvoiceApi;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
 
 class PaymentController extends Controller
 {
-    var $apiInstance=null;
-    
-    // Fungsi untuk menampilkan semua pembayaran
-//     public function index()
-//     {
-//         $payments = Payment::all();
-//         return response()->json([
-//             "status" => true,
-//             "message" => "Data payment list",
-//             "data" => $payments
-//         ], 200);
-//     }
+    public function index(Request $request)
+    {
+    }
+    public function payment(Request $request)
+    {
+        // Set your Merchant Server Key
+        \Midtrans\Config::$serverKey = 'SB-Mid-server-vSlB2vmOHTOk_fO_LTND626z';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        \Midtrans\Config::$isProduction = false;
+        // Set sanitization on (default)
+        \Midtrans\Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        \Midtrans\Config::$is3ds = true;
 
-//     // Fungsi untuk menampilkan detail pembayaran berdasarkan ID
-//     public function show($id)
-//     {
-//         $payment = Payment::find($id);
-//         if (!$payment) {
-//             return response()->json([
-//                 "status" => false,
-//                 "message" => "Payment not found"
-//             ], 404);
-//         }
-//         return response()->json([
-//             "status" => true,
-//             "message" => "Payment details",
-//             "data" => $payment
-//         ], 200);
-//     }
 
-//     // Fungsi untuk membuat pembayaran baru
-//     public function store(Request $request)
-//     {
-//         // Validasi data
-//         $validator = Validator::make($request->all(), [
-//             'rental_id' => 'required|exists:rentals,id',
-//             'amount' => 'required|numeric',
-//             'payment_date' => 'required|date',
-//             'status' => 'required'
-//         ]);
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => Str::uuid(),
+                'gross_amount' => $request->price,,
+                // 'gross_amount' =>  rental_date + return_date * price,
+            ),
+            'customer_details' => array(
+                'customer_first_name' =>$request->customer_first_name,
+                'customer_email' => $request->customer_email,
+            ),
+            'item_details' => array(
+                array(
+                    'id' => 'a1',
+                    'price' => 10000,
+                    'quantity' => 1,
+                    'name' => 'a1',
+                ),
+                array(
+                    'id' => 'a2',
+                    'price' => 9000,
+                    'quantity' => 1,
+                    'name' => 'a2',
+                )
+            )
+        );
 
-//         if ($validator->fails()) {
-//             return response()->json([
-//                 "status" => false,
-//                 "message" => $validator->errors()
-//             ], 422);
-//         }
+        $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-//         // Buat pembayaran baru
-//         $payment = Payment::create($request->all());
+        return response()->json(['token' => $snapToken]);
+    }
+    public function webhook(Request $request)
+    {
+        $auth = base64_encode(env('MIDRANTS_SERVER_KEY'));
 
-//         return response()->json([
-//             "status" => true,
-//             "message" => "Payment created",
-//             "data" => $payment
-//         ], 201);
-//     }
+        $response = Http::withHeaders([
+            'Content-Type' => 'application/json',
+            'Authorization' => "Basic $auth"
+        ])->get("https://api.sandbox.midtrans.com/snap/v2/$request->id/status");
 
-//     // Fungsi untuk memperbarui pembayaran berdasarkan ID
-//     public function update(Request $request, $id)
-//     {
-//         $payment = Payment::find($id);
-//         if (!$payment) {
-//             return response()->json([
-//                 "status" => false,
-//                 "message" => "Payment not found"
-//             ], 404);
-//         }
+        $response = json_decode($response->body());
 
-//         // Validasi data
-//         $validator = Validator::make($request->all(), [
-//             'rental_id' => 'required|exists:rentals,id',
-//             'amount' => 'required|numeric',
-//             'payment_date' => 'required|date',
-//             'status' => 'required'
-//         ]);
+        $payments = Payment::where('order_id', $response->transaction_details->id)->firstOrFail();
 
-//         if ($validator->fails()) {
-//             return response()->json([
-//                 "status" => false,
-//                 "message" => $validator->errors()
-//             ], 422);
-//         }
+        //check db
+        if ($payments->status === 'settlement' || $payments->status === 'capture') {
+            return response()->json('Payment success');
+        }
 
-//         // Perbarui data pembayaran
-//         $payment->update($request->all());
+        if ($response->transaction_status === 'capture') {
+            $payments->status = 'settlement';
+            //mengirim link ke customer
+        } elseif ($response->transaction_status === 'settlement') {
+            $payments->status = 'settlement';
+            //mengirim link ke customer
+        } elseif ($response->transaction_status === 'pending') {
+            $payments->status = 'pending';
+            //mengirim link ke customer
+        } elseif ($response->transaction_status === 'deny') {
+            $payments->status = 'deny';
+            //mengirim link ke customer
+        } elseif ($response->transaction_status === 'expire') {
+            $payments->status = 'expire';
+            //mengirim link ke customer
+        } elseif ($response->transaction_status === 'cancel') {
+            $payments->status = 'cancel';
+            //mengirim link ke customer
+        }
 
-//         return response()->json([
-//             "status" => true,
-//             "message" => "Payment updated",
-//             "data" => $payment
-//         ], 200);
-//     }
-
-//     // Fungsi untuk menghapus pembayaran berdasarkan ID
-//     public function destroy($id)
-//     {
-//         $payment = Payment::find($id);
-//         if (!$payment) {
-//             return response()->json([
-//                 "status" => false,
-//                 "message" => "Payment not found"
-//             ], 404);
-//         }
-
-//         $payment->delete();
-//         return response()->json([
-//             "status" => true,
-//             "message" => "Payment deleted"
-//         ], 200);
-//     }
+        $payments->save();
+        return response()->json('Payment success');
+    }
 
 }
