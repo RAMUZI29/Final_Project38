@@ -73,6 +73,16 @@ export class AuthService {
     return data;
   }
 
+  async register(dataRegister: object) {
+    const token = this.getToken();
+    const { data } = await axiosInstance.post('/register', dataRegister, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      }
+    });
+    return data;
+  }
+
   async loginWithGoogle(dataLogin: object) {
     const token = this.getToken();
     const { data } = await axiosInstance.post('/oauth/register', dataLogin, {

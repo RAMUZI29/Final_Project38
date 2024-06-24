@@ -1,0 +1,978 @@
+{
+	"info": {
+		"_postman_id": "aac521bb-3409-4e4c-9388-33a11724b04b",
+		"name": "Final Project",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35040614"
+	},
+	"item": [
+		{
+			"name": "car",
+			"item": [
+				{
+					"name": "read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/car",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"car"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "name",
+								"value": "Supra MK-5"
+							},
+							{
+								"key": "image",
+								"value": ""
+							},
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Agya",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "postman-cloud:///1ef16a71-df2d-4de0-b944-8adf9d9848f2"
+								},
+								{
+									"key": "price_per_day",
+									"value": "900000",
+									"type": "text"
+								},
+								{
+									"key": "seat",
+									"value": "6",
+									"type": "text"
+								},
+								{
+									"key": "tranmisi",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "category_id",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}/api/car",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"car"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\r\n        \"name\": \r\n            \"Xenia\"\r\n        ,\r\n        \"description\": \r\n            \"Lorem\",\r\n        \"price_per_day\": \r\n            \"10000\",\r\n        \"seat\": \r\n            \"6\",\r\n        \"tranmisi\": \r\n            \"1\"\r\n        ,\r\n        \"category_id\": \r\n            \"2\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/car/18",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"car",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/car/18",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"car",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Daihatsu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/categories",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"Xiomi\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/categories/7",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"categories",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/categories/7",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"categories",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "rental",
+			"item": [
+				{
+					"name": "read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/rental",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"rental"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\" : \"2\",\r\n    \"car_id\" : \"13\",\r\n    \"rental_date\" : \"2024-06-09\",\r\n    \"return_date\" : \"2024-06-11\",\r\n    \"total_amount\" : \"1000000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/rental",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"rental"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_id\" : 1,\r\n    \"car_id\" : 17,\r\n    \"rental_date\" : \"2024-06-09\",\r\n    \"return_date\" : \"2024-06-11\",\r\n    \"total_amount\": \"20000\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/rental/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"rental",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/rental/3",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"rental",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"item": [
+				{
+					"name": "read",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    // \"price\" : 10000,\r\n    // \"customer_first_name\": \"aldi\",\r\n    // \"customer_email\":\"aldiasli690@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/payment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"price\" : 10000,\r\n    \"item_name\": \"agya\",\r\n    \"customer_first_name\": \"aldi\",\r\n    \"customer_email\":\"aldiasli690@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/payment",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"rental_id\" : \"11\",\r\n    \"amount\" : \"10000\",\r\n    \"payment_date\" : \"2024-06-09\",\r\n    \"status\" : \"pending\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/payment/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/payment/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"payment",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "stocks",
+			"item": [
+				{
+					"name": "read",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/stock",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"car_id\" : \"13\",\r\n    \"quantity\" : \"1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/stock",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stock"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"car_id\" : 17,\r\n    \"quantity\": \"3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/stock/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stock",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "booking-api-key",
+								"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}/api/stock/2",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"stock",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "register",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL3JlbnRhbC1tb2JpbC0zOC5teS5pZC9hcGkvbG9naW4iLCJpYXQiOjE3MTkwNTYzMzUsImV4cCI6MTcxOTA1OTkzNSwibmJmIjoxNzE5MDU2MzM1LCJqdGkiOiJzUEtvZzZOQk1QVlphTUU2Iiwic3ViIjoiMSIsInBydiI6IjIzYmQ1Yzg5NDlmNjAwYWRiMzllNzAxYzQwMDg3MmRiN2E1OTc2ZjcifQ.aP9OifBBuj4Sj7Xx0ct_FG1bXHHPp8EKDN-ne2TunIk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "booking-api-key",
+						"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://rental-mobil-38.my.id/api/login",
+					"protocol": "https",
+					"host": [
+						"rental-mobil-38",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "booking-api-key",
+						"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\" : \"admin@mail.com\",\r\n    \"password\" : \"admin\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://rental-mobil-38.my.id/api/login",
+					"protocol": "https",
+					"host": [
+						"rental-mobil-38",
+						"my",
+						"id"
+					],
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "jwtAdmin",
+			"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDAvYXBpL2xvZ2luIiwiaWF0IjoxNzE3NjI3ODQ2LCJleHAiOjE3MTc2MzE0NDYsIm5iZiI6MTcxNzYyNzg0NiwianRpIjoiNElicnNQaGNQTGl1MmgzQyIsInN1YiI6IjQiLCJwcnYiOiIyM2JkNWM4OTQ5ZjYwMGFkYjM5ZTcwMWM0MDA4NzJkYjdhNTk3NmY3In0.CR__JL9jimkIL61LEpMV1-Cs27wRpBBEbwlHKZK8lik",
+			"type": "string"
+		},
+		{
+			"key": "url",
+			"value": "https://rental-mobil-38.my.id",
+			"type": "string"
+		},
+		{
+			"key": "booking-api-key",
+			"value": "vNXnpOP3nzVPP6t7GnWmMi2Bhqxg9XvdqX5dWHSgEroQEDjE8PshR8xwwQm7",
+			"type": "string"
+		}
+	]
+}

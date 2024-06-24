@@ -31,31 +31,32 @@ export class RegisterPage implements OnInit {
 
     console.log(this.responser);
   }
-
-  onSubmit() {
-    this.isLoading = true;
-    this.isAlert = false; // Reset the alert visibility
-    this.isError = false; // Reset the error state
-
-    if (this.regisForm.valid) {
-      axios
-        .post('http://localhost:8000/api/register', this.regisForm.value)
-        .then((response) => {
-          this.responser = response.data;
-          this.router.navigate(['/login']);
-        })
-        .catch((error) => {
+    async onSubmit() {
+      this.isLoading = true;
+      this.isAlert = false; // Reset the alert visibility
+      this.isError = false; // Reset the error state
+  
+      if (this.regisForm.valid) {
+        try {
+          const response = await this.authService.register(this.regisForm.value);
+          if (response) {
+            // console.log("Response:", response);
+            this.responser = { ...response };
+            this.isLoading = false;
+            this.router.navigate(['/login']);
+          }
+        } catch (error: any) {
           this.responser = error.response
             ? error.response.data
             : { message: 'Unknown error' };
           this.isError = true;
-          this.isAlert = true; // Show alert only if there's an error
-        })
-        .finally(() => {
+          this.isAlert = true;
           this.isLoading = false;
-        });
-    } else {
-      this.isLoading = false;
+        }
+  
+
+      } else {
+        this.isLoading = false;
+      }
     }
   }
-}

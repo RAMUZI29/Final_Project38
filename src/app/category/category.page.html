@@ -101,7 +101,6 @@
             </ion-modal>
           </ion-card-content>
         </ion-card>
-        <ion-icon name="swap-vertical-outline"></ion-icon>
         <ion-card>
           <ion-card-header>
             <ion-card-title>Drop-off</ion-card-title>
@@ -164,12 +163,34 @@
             </ion-row>
           </ion-card-content>
         </ion-card>
-        <ion-card>
-          <ion-card-header>
-            <ion-card-title>Payment</ion-card-title>
-            <ion-card-content></ion-card-content>
-          </ion-card-header>
-        </ion-card>
+
+        <ion-card-content>
+          <ion-item>
+          <ion-card-title>Pembayaran</ion-card-title>
+          </ion-item>
+          <ion-item>
+            <ion-label>Jenis Mobil:</ion-label>
+            <ion-label>{{ dataRental.name }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Harga Sewa Harian:</ion-label>
+            <ion-label>Rp. {{ dataRental.price_per_day }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Durasi Sewa:</ion-label>
+            <ion-label>{{ getNumberOfDays() }} hari</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>Total Sewa:</ion-label>
+            <ion-label>Rp. {{ getRentalTotalPrice() }}</ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label color="danger" bold
+              >Pembayaran yang harus dibayarkan (30%)</ion-label
+            >
+          </ion-item>
+        </ion-card-content>
+
         <ion-button expand="block" (click)="handleBooking(dataRental)"
           >Confirm</ion-button
         >
@@ -177,6 +198,7 @@
     </ng-template>
   </ion-modal>
 </ion-content>
+
 
 <!-- <ion-grid>
       <ion-row>
