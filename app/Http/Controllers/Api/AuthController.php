@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -60,17 +61,17 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
-        $validator = Validator::make($request->all(), [
+        $valdator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
 
         // failed validation
-        if ($validator->fails()) {
+        if ($valdator->fails()) {
             return response()->json([
                 "status" => false,
-                "message" => "harap login terlebih dahulu"
+                "message" => $valdator->errors()
             ], 401);
         }
 
@@ -99,58 +100,55 @@ class AuthController extends Controller
 
     public function loginWithGoogle(Request $request)
     {
-        $accessToken = $request->bearerToken();
-        try {
-            $response = Http::withHeaders(
-                ['Authorization' => 'Bearer ' . $accessToken]
-            )->get('https://www.googleapis.com/oauth2/v3/userinfo');
+        $token = $request->accessToken;
+        $googleUser = Socialite::driver('google')->userFromToken($token);
+        $user = User::where('email', $googleUser->email)->first();
 
-            $userdata = $response->json();
-
-            $email = $request->email;
-            $name = $request->name;
-            $password = bcrypt($request->password);
-
-            $user = User::where('email', $email)->first();
-
-            if ($user) {
+        if ($user) {
+                // Jika pengguna sudah ada, lakukan login
                 $token = auth()->guard('api')->login($user);
                 return response()->json([
                     "status" => true,
-                    "message" => "login success with google",
+                    "message" => "Login berhasil dengan Google",
                     "token" => $token
                 ], 200);
             } else {
+                // Pengguna belum ada, buat pengguna baru
                 $user = User::create([
-                    'name' => $name,
-                    'email' => $email,
-                    'password' => $password
+                    'name' => $googleUser->name,
+                    'email' => $googleUser->email,
+                    'password' => bcrypt('123456dummy') // Gunakan kata sandi default yang aman atau kata sandi acak
                 ]);
+
                 $token = auth()->guard('api')->login($user);
                 return response()->json([
                     "status" => true,
-                    "message" => "register with google success",
+                    "message" => "Pendaftaran berhasil dengan Google",
                     "token" => $token
                 ], 200);
             }
-        } catch (\Exception $e) {
-            return response()->json([
-                "status" => false,
-                "message" => $e->getMessage()
-            ], 401);
-        }
     }
+
     public function logout(Request $request)
     {
         //remove token
         $removeToken = JWTAuth::invalidate(JWTAuth::getToken());
 
-        if($removeToken) {
+        if ($removeToken) {
             //return response JSON
             return response()->json([
                 'success' => true,
                 'message' => 'Logout Berhasil!',
             ]);
         }
+    }
+
+    public function info(Request $request)
+    {
+        $user = JWTAuth::user();
+        return response()->json([
+            "status" => true,
+            "data" => $user
+        ], 200);
     }
 }

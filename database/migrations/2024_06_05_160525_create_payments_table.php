@@ -10,13 +10,13 @@ class CreatePaymentsTable extends Migration
     {
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('order_id');
-            $table->string('status');
-            $table->double('price');
-            $table->string('item_name');
-            $table->string('customer_first_name');
-            $table->string('customer_email');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('rental_id')->constrained()->onDelete('cascade');
+            $table->decimal('amount', 10, 2);
             $table->string('checkout_link');
+            $table->string('external_id');
+            $table->date('payment_date');
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }
@@ -24,6 +24,7 @@ class CreatePaymentsTable extends Migration
     public function down()
     {
         Schema::table('payments', function (Blueprint $table) {
+            $table->dropForeign(['user_id']);
             $table->dropForeign(['rental_id']);
         });
         Schema::dropIfExists('payments');

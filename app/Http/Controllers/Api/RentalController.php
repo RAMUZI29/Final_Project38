@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Rental;
+use App\Models\Stock;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -34,7 +37,7 @@ class RentalController extends Controller
             "status" => true,
             "message" => "Rental details",
             "data" => $rental
-        ], 200);
+        ], 200);    
     }
 
     // Fungsi untuk membuat rental baru
@@ -42,11 +45,12 @@ class RentalController extends Controller
     {
         // Validasi data
         $validator = Validator::make($request->all(), [
-            'user_id' => 'required|exists:users,id',
+            // 'user_id' => 'required|exists:users,id',
             'car_id' => 'required|exists:cars,id',
             'rental_date' => 'required|date',
             'return_date' => 'required|date|after_or_equal:start_date',
-            'total_amount' => 'required|numeric'
+            'total_amount' => 'required|numeric',
+            'status' => 'required',
         ]);
 
         if ($validator->fails()) {
@@ -56,8 +60,59 @@ class RentalController extends Controller
             ], 422);
         }
 
+        $rental_date = $request->rental_date;
+        $return_date = $request->return_date;
+
+        // if(){
+        //     return response()->json([
+        //         "status" => false,
+        //         "message" => "Rental date and return date cannot be the same day"
+        //     ]);
+        // }
+
+        $amount = $request->total_amount;
+        $hari = DateTime::createFromFormat('Y-m-d', $return_date)->diff(DateTime::createFromFormat('Y-m-d', $rental_date))->days;
+        $total = $amount * $hari;
+
+        if($rental_date >= $return_date){
+            return response()->json([
+                "status" => false,
+                "message" => "Rental date cannot be greater than return date"
+            ]);
+        }
+
+        $addRental = [
+            'user_id' => auth()->user()->id,
+            'car_id' => $request->car_id,
+            'rental_date' => $request->rental_date,
+            'return_date' => $request->return_date,
+            'total_amount' => $total,
+            'status' => $request->status
+        ];
+       
+
         // Buat rental baru
-        $rental = Rental::create($request->all());
+        // cek stok 
+        $stok = Stock::find($request->car_id);
+        if ($stok->quantity <= 0) {
+            return response()->json([
+                "status" => false,
+                "message" => "Stock not available"
+            ]);
+        }
+
+        $stok->update([
+            'quantity' => $stok->quantity - 1
+        ]);
+
+        $rental = Rental::create($addRental);
+        
+        // if ($rental) {
+        //     $stok = Stock::find($request->car_id);
+        //     $stok->update([
+        //         'quantity' => $stok->quantity - 1
+        //     ]);
+        // }
 
         return response()->json([
             "status" => true,
@@ -83,7 +138,8 @@ class RentalController extends Controller
             'car_id' => 'required|exists:cars,id',
             'rental_date' => 'required|date',
             'return_date' => 'required|date|after_or_equal:start_date',
-            'total_amount' => 'required|numeric'
+            'total_amount' => 'required|numeric',
+            'status' => 'required',
         ]);
 
         if ($validator->fails()) {

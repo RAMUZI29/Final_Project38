@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Car;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
@@ -12,11 +13,27 @@ class CarController extends Controller
     // Fungsi untuk menampilkan semua mobil
     public function index()
     {
-        $cars = Car::all();
+        $cars = Car::with("stock")->get();
+        // $filter = $cars[0];
+
+        $data = $cars->map(function ($cars) {
+            return [
+                "id" => $cars->id,
+                "name" => $cars->name,
+                "image" => $cars->image,
+                "price_per_day" => $cars->price_per_day,
+                "seat" => $cars->seat,
+                "transmisi" => $cars->transmisi,
+                "jenis_bbm" => $cars->jenis_bbm,
+                "category_id" => $cars->category_id,
+                "stock" => $cars->stock->quantity
+            ];
+        });
+
         return response()->json([
             "status" => true,
             "message" => "Data car list",
-            "data" => $cars
+            "data" => $data
         ], 200);
     }
 
@@ -48,6 +65,7 @@ class CarController extends Controller
             'price_per_day' => 'required|string|max:255',
             'seat' => 'required|string|max:255',
             'transmisi' => 'required|in:manual,automatic,MT,AT', // Perubahan di sini
+            'jenis_bbm' => 'required|in:EV,Diesel,Bensin',
             "category_id" => 'required|exists:categories,id', // Perubahan di sini
         ]);
 
@@ -74,6 +92,7 @@ class CarController extends Controller
             'price_per_day' => $request->price_per_day,
             'seat' => $request->seat,
             'transmisi' => $request->transmisi,
+            'jenis_bbm' => $request->jenis_bbm,
             'category_id' => $request->category_id,
             'availability' => $request->quantity > 0 ? 'Tersedia' : 'Tidak Tersedia',
         ]);
@@ -104,6 +123,7 @@ class CarController extends Controller
             'price_per_day' => 'required|string|max:255',
             'seat' => 'required|string|max:255',
             'transmisi' => 'required|in:manual,automatic,MT,AT', // Perubahan di sini
+            'jenis_bbm' => 'required|string|max:255',
             "category_id" => 'required|exists:categories,id', // Perubahan di sini
         ]);
 
@@ -123,7 +143,7 @@ class CarController extends Controller
         }
 
         // Perbarui data mobil
-        $car->update($request->only(['name', 'description', 'price_per_day', 'seat', 'transmisi', 'category_id', 'image']));
+        $car->update($request->only(['name', 'description', 'price_per_day', 'seat', 'transmisi', 'jenis_bbm', 'category_id', 'image']));
 
         // Perbarui ketersediaan berdasarkan stok
         $car->availability = $request->quantity > 0 ? 'Tersedia' : 'Tidak Tersedia';

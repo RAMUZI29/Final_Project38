@@ -15,6 +15,7 @@ class CreateRentalsTable extends Migration
             $table->date('rental_date');
             $table->date('return_date');
             $table->decimal('total_amount', 10, 2);
+            $table->enum('status', ['Not Yet Paid', 'Active', 'Expired'])->default('Not Yet Paid');
             $table->timestamps();
         });
     }
