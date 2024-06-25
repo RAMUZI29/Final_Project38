@@ -90,12 +90,14 @@ export class LoginPage implements OnInit {
       if (user) {
         try {
           const response = await this.authService.loginWithGoogle(user.authentication);
+          console.log(response);
           if (response) {
             this.responser = { ...response };
             this.authService.setToken(response.token);
             this.router.navigate(['/home']);
           }
         } catch (error: any) {
+          console.log(error);
           this.responser = error.response
             ? error.response.data
             : { message: 'Unknown error' };

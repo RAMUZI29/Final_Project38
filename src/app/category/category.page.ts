@@ -1,9 +1,14 @@
+import { AuthService } from './../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { CategoryService } from '../services/category.service';
 import { CarService } from '../services/car.service';
 import { StocksService } from '../services/stocks.service';
 import { environment } from 'src/environments/environment';
 import { RentalService } from '../services/rental.service';
+import axios from 'axios';
+import { AxiosRequestConfig } from 'axios';
+import { AxiosError } from 'axios';
+import axiosInstance from '../lib/axios';
 
 declare global {
   interface Window {
@@ -23,38 +28,60 @@ export class CategoryPage implements OnInit {
   email: any;
   stocks: any[] = [];
   segment: number = 1;
+  item: any;
   filteredData: any[] = [];
+  userData: any = {};
+
   dataRental: any = {
     name: '',
     seat: '',
     transmisi: '',
     jenis_bbm: '',
   };
+
   pickupDate: string = this.getCurrentDate();
   dropoffDate: string = this.getTomorrowDate();
+
+  totalSewa = '0';
+  total = '0';
 
   constructor(
     public categoryService: CategoryService,
     public carService: CarService,
     public stocksService: StocksService,
-    public rentalService: RentalService
+    public rentalService: RentalService,
+    public auth: AuthService
   ) {}
+
+  ngOnInit() {
+    this.getInfo();
+    this.Category();
+    this.Car();
+    this.item();
+  }
+
+  async getInfo() {
+    try {
+      const infoUser = await this.auth.infoLoginUser();
+      this.userData = await infoUser.data;
+    } catch (error) {
+      console.error('Error fetching user info', error);
+    }
+  }
 
   isModalOpen = false;
   setOpen(isOpen: boolean) {
     this.isModalOpen = isOpen;
   }
 
-  ngOnInit() {
-    this.Category();
-    this.Car();
-  }
-
-  handleModal(item: object) {
-    this.isModalOpen = !this.isModalOpen;
-    this.dataRental = {
-      ...item,
-    };
+  handleModal(item: any) {
+    if (item && item.id) {
+      this.isModalOpen = !this.isModalOpen;
+      const idUser = this.userData.id;
+      this.dataRental = { idUser, ...item };
+    } else {
+      console.error('Invalid item passed to handleModal:', item);
+    }
   }
 
   async Category() {
@@ -63,6 +90,15 @@ export class CategoryPage implements OnInit {
       this.data = response.data;
     } catch (error) {
       console.error('Error fetching category data:', error);
+    }
+  }
+
+  async Stocks() {
+    try {
+      const response = await this.stocksService.getStocks();
+      this.stocks = response.data;
+    } catch (error) {
+      console.error('Error fetching stocks data:', error);
     }
   }
 
@@ -90,6 +126,13 @@ export class CategoryPage implements OnInit {
       (d) => d.category_id === this.segment.toString()
     );
   }
+  formatPrice(price: any): string {
+    return price.toLocaleString('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+    });
+  }
 
   async handleInput(event: any) {
     const value = event.target.value;
@@ -98,88 +141,105 @@ export class CategoryPage implements OnInit {
     );
   }
 
+  // cek currenn date
   getCurrentDate() {
     return new Date().toISOString().split('T')[0];
   }
 
   getRentalTotalPrice() {
-    const pickupDate = new Date(this.pickupDate);
-    const dropoffDate = new Date(this.dropoffDate);
-    const numberOfDays = Math.floor(
-      (dropoffDate.getTime() - pickupDate.getTime()) / (1000 * 60 * 60 * 24)
-    );
+    const numberday = this.getNumberOfDays();
 
     if (this.dataRental && this.dataRental.price_per_day) {
-      const totalBasePrice = numberOfDays * this.dataRental.price_per_day;
-      const upfrontPaymentAmount = totalBasePrice * 0.3; // Calculate 10% payment
-      return upfrontPaymentAmount;
+      const totalBasePrice = numberday * this.dataRental.price_per_day;
+      // persen 30%
+      const persen = totalBasePrice * 0.3;
+      // const upfrontPaymentAmount = totalBasePrice * 0.3;
+      return totalBasePrice;
     } else {
-      return 0; // Handle potential errors (e.g., missing data)
+      return 0;
     }
+  }
+
+  async paymentAlternative(item: any) {
+    console.log('Item in paymentAlternative:', item);
+
+    if (!item || !item.id) {
+      console.error('Item is undefined or does not have an id:', item);
+      return;
+    }
+
+    // const userId = localStorage.getItem('user_id');
+    const token = localStorage.getItem('authToken');
+
+    if (!token) {
+      console.error('Token not found in localStorage.');
+      return;
+    }
+
+    const bookingData = {
+      // user_id: userId,
+      rental_id: item.id,
+      status: 'default',
+      rental_date: this.pickupDate || this.getCurrentDate(),
+      return_date: this.dropoffDate || this.getTomorrowDate(),
+      total_amount: this.getRentalTotalPrice(),
+    };
+
+    try {
+      const response = await axiosInstance.post('payment/alt', bookingData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      console.log('Rental created:', response.data);
+
+      // Lanjutkan dengan permintaan pembuatan payment setelah rental berhasil
+    } catch (error: any) {
+      console.error('Error:', error);
+
+      if (error.response && error.response.status === 400) {
+        console.error('Bad Request. Check the data sent to the server.');
+        console.error('Server error message:', error.response.data);
+      } else if (error.response && error.response.status === 401) {
+        console.error('Unauthorized. Check token or login status.');
+      } else {
+        console.error('Unknown error occurred.');
+      }
+    }
+    console.log('Booking data:', bookingData);
   }
 
   async handleBooking(item: any) {
-    const bookingData = {
-      rental_date: this.pickupDate || this.getCurrentDate(),
-      return_date: this.dropoffDate || this.getTomorrowDate(),
-      dataRental: item.name,
-      customer_email: this.email,
-      customer_first_name: localStorage.getItem('name'),
-      data: item.Rentalname,
-    };
+    console.log('Item in handleBooking:', item);
 
-    console.log(bookingData);
+    // Check if item or item.id is undefined or null
+    if (!item || !item.id) {
+      console.error('Item is undefined or does not have an id:', item);
+      return;
+    }
+
+    const Data = {
+      user_id: item.idUser,
+      car_id: item.id,
+      rental_date: this.pickupDate,
+      return_date: this.dropoffDate,
+      total_amount: item.price_per_day,
+      status: 'Not Yet Paid',
+    };
+    console.log('Data for booking:', Data);
 
     try {
-      const response = await fetch('https://rental-mobil-38.my.id/api/payment', {
-        method: 'POST',
+      const response = await axiosInstance.post('/rental', Data, {
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${localStorage.getItem('authToken')}`,
+          Authorization: `Bearer ${this.auth.getToken()}`,
         },
-        body: JSON.stringify(bookingData),
       });
-
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-
-      const responseData = await response.json();
-      const { token } = responseData;
-
-      const snapScript = 'https://app.sandbox.midtrans.com/snap/snap.js';
-      const clientKey = 'SB-Mid-client-2H5nKp7wB0J8eX0z';
-
-      return new Promise<void>((resolve, reject) => {
-        const script = document.createElement('script');
-        script.src = snapScript;
-        script.setAttribute('data-client-key', clientKey);
-        script.async = true;
-        script.onload = () => {
-          console.log('Snap.js loaded successfully');
-          if (
-            typeof window.snap !== 'undefined' &&
-            typeof window.snap.pay === 'function'
-          ) {
-            window.snap.pay(token);
-            resolve();
-          } else {
-            reject(
-              new Error('window.snap.pay is not defined or not a function')
-            );
-          }
-        };
-        script.onerror = (error) => {
-          reject(new Error('Failed to load Snap.js'));
-        };
-        document.body.appendChild(script);
-      });
+      console.log('Rental created:', response.data);
     } catch (error) {
-      console.error('Error handling booking:', error);
-      // Handle error appropriately
+      console.error('Error:', error);
     }
   }
-
 
   getNumberOfDays() {
     const pickupDate = new Date(this.pickupDate).getTime();
@@ -187,7 +247,19 @@ export class CategoryPage implements OnInit {
     const diffInDays = Math.ceil(
       (dropoffDate - pickupDate) / (1000 * 60 * 60 * 24)
     );
-    return diffInDays;
+
+    if (this.dataRental && this.dataRental.price_per_day) {
+      const totalBasePrice = diffInDays * this.dataRental.price_per_day;
+      // persen 30%
+      const persen = totalBasePrice * 0.3;
+      this.totalSewa = this.formatPrice(persen);
+      const total = totalBasePrice - persen;
+      this.total = this.formatPrice(total);
+      return diffInDays;
+    } else {
+      return 0;
+    }
+    // return diffInDays;
   }
 
   getTomorrowDate() {
@@ -199,13 +271,24 @@ export class CategoryPage implements OnInit {
   updatePickupDate(event: CustomEvent) {
     this.pickupDate = new Date(event.detail.value).toISOString().split('T')[0];
     console.log('Pickup Date updated to:', this.pickupDate);
+    // this.getNumberOfDays();
+    // const newDropoffDate = new Date(this.pickupDate);
+    // newDropoffDate.setDate(newDropoffDate.getDate() + 1);
+    // this.dropoffDate = newDropoffDate.toISOString().split('T')[0];
+    // console.log('Dropoff Date updated to:', this.dropoffDate);
+  }
 
-    // Ensure you call getNumberOfDays here to recalculate after update
-    this.getNumberOfDays();
-
-    // Update the dropoffDate to ensure it's always after the pickupDate
+  updateDropoffDate(event: CustomEvent) {
     const newDropoffDate = new Date(this.pickupDate);
     newDropoffDate.setDate(newDropoffDate.getDate() + 1);
-    this.dropoffDate = newDropoffDate.toISOString().split('T')[0];
+    this.dropoffDate = new Date(event.detail.value).toISOString().split('T')[0];
+    console.log('DropUp Date updated to:', this.dropoffDate);
+  }
+
+  sewaHarian(data: any) {
+    const sewa = parseInt(data);
+    // const sewa = this.dataRental.price_per_day
+    const total = this.formatPrice(sewa);
+    return total;
   }
 }
