@@ -6,40 +6,25 @@
 
 <ion-content color="light">
   <div class="content">
-    <!--Not Yet Paid-->
-    <ion-list [inset]="true">
+    <!-- Not Yet Paid -->
+    <ion-list id="notYetPaidList">
       <ion-list-header>
         <h1>Not Yet Paid</h1>
       </ion-list-header>
-      @for (rental of rental; track $index) {
-      <ion-card>
-        <ion-card-content>ID User : {{rental.user_id}}</ion-card-content>
-        <ion-card-content>Total Harga : {{rental.total_amount}}</ion-card-content>
-        <ion-card-content>Status Rental : {{rental.status}}</ion-card-content>
-      </ion-card>
-    }
-      </ion-list>
+    </ion-list>
 
-      <!--Active-->
-      <ion-list>
-        <ion-list-header>
+    <!-- Active -->
+    <ion-list id="activeList">
+      <ion-list-header>
         <h1>Active</h1>
-        </ion-list-header>
-        <ion-card>
-          <ion-card-content></ion-card-content>
-          <ion-card-content></ion-card-content>
-        </ion-card>
-      </ion-list>
+      </ion-list-header>
+    </ion-list>
 
-      <!--Expired-->
-      <ion-list>
-        <ion-list-header>
+    <!-- Expired -->
+    <ion-list id="expiredList">
+      <ion-list-header>
         <h1>Expired</h1>
-        </ion-list-header>
-        <ion-card>
-          <ion-card-content></ion-card-content>
-          <ion-card-content></ion-card-content>
-        </ion-card>
-      </ion-list>
+      </ion-list-header>
+    </ion-list>
   </div>
 </ion-content>
